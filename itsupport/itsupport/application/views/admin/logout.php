@@ -1,0 +1,1 @@
+<?php require_once 'include/constants.php'; ?><?php if(session_destroy()){     header("location:".HOSTURL."index.php"); }?>
