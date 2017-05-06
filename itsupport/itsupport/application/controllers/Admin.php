@@ -82,6 +82,69 @@ class Admin extends CI_Controller
 		}
 		$this->load->view('admin/home');
 	}
+	public function changePassword()
+	{
+		//This function is for change the password 
+		$session=$this->session->all_userdata();
+		$email = $this->session->userdata('admin_email_id');
+		if($email =='')
+		{
+			redirect('admin/index');
+		}
+		$this->load->view('admin/change_password');
+		if(isset($_POST['submit']))
+		{
+			//now getting the vlaues from view
+			$password=$this->input->post('password');
+			$newPassword=$this->input->post('newPassword');
+			//check the credential is correct or not
+			$check=$this->admin_model->getRecord('admin', array('admin_email_id'=>$email,'password'=>$password));
+			if($check==0)
+			{
+				$this->session->set_flashdata('error_msg','Invalid old password');
+				redirect('admin/changePassword');	
+			}
+			else 
+			{
+				//all the credentials are valid
+				//now update the new password for login email id
+				$result=$this->admin_model->updateRecord('admin',array('password'=>$newPassword),array('admin_email_id'=>$email));
+				if($result==0)
+				{
+					$this->session->set_flashdata('error_msg','Unable to change password');
+					redirect('admin/changePassword');
+				}
+				else 
+				{
+					$this->session->set_flashdata('success_msg','Password changed successfully');
+					redirect('admin/changePassword');
+				}
+			}
+		}
+	}
+	public function sendNotification()
+	{
+		//This function is for sending the notification to the user
+		$session=$this->session->all_userdata();
+		$email = $this->session->userdata('admin_email_id');
+		if($email =='')
+		{
+			redirect('admin/index');
+		}
+		$this->load->view('admin/send_notification');
+		if(isset($_POST['submit']))
+		{
+			//now getting the values from view
+			$message=$this->input->post('message');
+			/*
+			$result=$this->admin_model->getRecord($table, $data);
+			if($result!=0)
+			{
+					
+			}*/
+			$this->session->set_flashdata('success_msg','Notification send successfully');
+		}
+	}
 	public function logout() 
 	{
 		//This function is used to logout the user and destroy the session

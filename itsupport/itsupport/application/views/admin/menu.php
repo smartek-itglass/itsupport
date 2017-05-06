@@ -56,34 +56,67 @@
                       </li>
                      </ul>
                 </li>
-                <li class="start <?php echo ($url=='addContinents'||$url=='addCountries')? 'active':'' ?>">
+                <li class="start <?php echo ($url=='addContinents'||$url=='addCountries' || $url=='uploadxl')? 'active':'' ?>">
                     <a href="#">
-                        <i class="fa fa-map-marker"></i>
+                        <i class="fa fa-globe"></i>
                         <span class="title">Continents</span>
                         <span class="arrow"></span>
                     </a>
                     <ul class="sub-menu" >
                         <li class="<?php echo ($url == 'addContinents')? 'active':'' ?>">
-                            <a href="<?php echo base_url(); ?>index.php/adminhome/addContinents"><i class="fa fa-location-arrow"></i>
+                            <a href="<?php echo base_url(); ?>index.php/adminhome/addContinents"><i class="fa fa-globe"></i>
                                 <span class="title">Add Continents</span>
                                 <span> </span>
                             </a>
                       </li>
                       <li class="<?php echo ($url == 'addCountries')? 'active':'' ?>">
-                           <a href="<?php echo base_url(); ?>index.php/adminhome/addCountries"><i class="fa fa-crosshairs"></i>
+                           <a href="<?php echo base_url(); ?>index.php/adminhome/addCountries"><i class="fa fa-flag-checkered"></i>
                                 <span class="title">Add Country</span>
+                                <span> </span>
+                           </a>
+                      </li>
+                      <li class="<?php echo ($url == 'uploadxl')? 'active':'' ?>">
+                           <a href="<?php echo base_url(); ?>index.php/adminhome/uploadxl"><i class="fa fa-crosshairs"></i>
+                                <span class="title">Import xls</span>
+                                <span> </span>
+                           </a>
+                      </li>
+                      <li class="<?php echo ($url == 'exportExcel')? 'active':'' ?>">
+                           <a href="<?php echo base_url(); ?>index.php/adminhome/exportExcel"><i class="fa fa-crosshairs"></i>
+                                <span class="title">Export</span>
                                 <span> </span>
                            </a>
                       </li>
                      </ul>
                 </li>
-                <!--li class="start <?php echo ($url == 'addCategory' )? 'active':'' ?>"">
-                    <a href="<?php echo base_url(); ?>index.php/adminhome/addCategory">
-                        <i class="fa fa-glass"></i>
-                        <span class="title">Category</span>
+                <li class="start <?php echo ($url=='logout'||$url=='changePassword' )? 'active':'' ?>">
+                    <a href="#">
+                        <i class="fa fa-cogs"></i>
+                        <span class="title">Settings</span>
+                        <span class="arrow"></span>
+                    </a>
+                    <ul class="sub-menu" >
+                        <li class="<?php echo ($url == 'changePassword')? 'active':'' ?>">
+                            <a href="<?php echo base_url(); ?>index.php/admin/changePassword"><i class="fa fa-location-arrow"></i>
+                                <span class="title">Change Password</span>
+                                <span> </span>
+                            </a>
+                      </li>
+                      <li class="<?php echo ($url == 'logout')? 'active':'' ?>">
+                           <a href="<?php echo base_url(); ?>index.php/admin/logout"><i class="fa fa-power-off"></i>
+                                <span class="title">Logout</span>
+                                <span> </span>
+                           </a>
+                      </li>
+                      </ul>
+                </li>
+                <li class="start <?php echo ($url == 'sendNotification')? 'active':'' ?>">
+                    <a href="<?php echo base_url(); ?>index.php/admin/sendNotification">
+                        <i class="fa fa-bell"></i>
+                        <span class="title">Notification</span>
                         <span> </span>
                     </a>
-                </li-->
+                </li>
                 <!--li class="start <?php echo ($url == 'orderList' || $url == 'orderDetail')? 'active':'' ?>">
                     <a href="<?php echo base_url(); ?>index.php/adminlevelone/orderList">
                         <i class="fa fa-shopping-cart"></i>
@@ -112,20 +145,7 @@
                         <span> </span>
                     </a>
                 </li>
-                <li class="start <?php echo ($url == 'couponList' || $url == 'editCoupon' || $url == 'restaurantCoupon')? 'active':'' ?>">
-                    <a href="<?php echo base_url(); ?>index.php/adminlevelone/couponList">
-                        <i class="fa fa-gift"></i>
-                        <span class="title">Coupon</span>
-                        <span> </span>
-                    </a>
-                </li>
-                <li class="start <?php echo ($url == 'chargesMaster' || $url == 'editCharges' )? 'active':'' ?>">
-                    <a href="<?php echo base_url(); ?>index.php/adminlevelone/chargesMaster">
-                        <i class="fa fa-rupee"></i>
-                        <span class="title">charges Master</span>
-                        <span> </span>
-                    </a>
-                </li>
+                
                 <li class="start <?php echo ($url == 'changePassword')? 'active':'' ?>">
                     <a href="<?php echo base_url(); ?>index.php/adminlevelone/changePassword">
                         <i class="fa fa-unlock-alt"></i>
@@ -133,67 +153,14 @@
                         <span> </span>
                     </a>
                 </li-->
-                <li class="start ">
+                <!--li class="start ">
                     <a href="<?php echo base_url()?>index.php/admin/logout">
                         <i class="fa fa-power-off "></i>
                         <span class="title">Log Out</span>
                         <span> </span>
                     </a>
-                </li>
-                <!--li class="start ">
-                <a href="#">
-                    <i class="fa fa-shopping-cart"></i>
-                    <span class="title"> Order </span>
-                </a>
-                </li>
-                
-                <li class="">
-                <a href="#">
-                    <i class="fa fa-shopping-cart"></i>
-                    <span class="title"> View Order </span>
-                </a>
-                </li>
-                
-                
-                <li class="start ">
-                    <a href="#">
-                        <i class="fa fa-users"></i>
-                        <span class="title">User Management</span>
-                        <span class="arrow"></span>
-                    </a>
-                    <ul class="sub-menu">
-                       
-                        <li class="">
-                            <a href="#">
-                                <i class="fa fa-user"></i>
-                                <span class="title">Add User Master</span>
-                                <span> </span>
-                            </a>
-                        </li>
-                        
-                    </ul>
-                
-                <li class="start ">
-                    <a href="#">
-                        <i class="fa fa-file-text"></i>
-                        <span class="title">Invoice</span>
-                        <span class="arrow"></span>
-                    </a>
-                    <ul class="sub-menu">
-                        <li class="">
-                            <a href="#">
-                                <i class="fa fa-file-text"></i>
-                                <span class="title">Invoice Management</span>
-                                <span class="selected"> </span>
-                            </a>
-                        </li>
-                        
-                        
-                    </ul>
                 </li-->
-                
-                
-            </ul>
+           </ul>
         </div>
     </div>
     <!-- END SIDEBAR -->

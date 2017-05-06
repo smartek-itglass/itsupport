@@ -26,7 +26,7 @@
                         <div class="portlet-title"><div class="caption"><i class="fa fa-plus-square"></i> Add Continents</div></div>
                         
                         <div class="portlet-body form">
-                            <form id="add_category"  method="post" enctype="multipart/form-data" class="form-horizontal" role="form">
+                            <form id="add_continent"  method="post" enctype="multipart/form-data" class="form-horizontal" role="form">
                                 <div class="form-body">
                                     <div class="form-group"><label class="col-md-3 control-label">Continent Name</label>
                                         <div class="col-md-4">

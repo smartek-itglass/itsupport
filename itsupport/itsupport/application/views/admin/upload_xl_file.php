@@ -1,14 +1,13 @@
 <?php include_once 'header.php'; include_once 'menu.php'; ?>
-<script src="<?php echo base_url(); ?>assets/ckeditor/ckeditor.js"></script>
-<script src="<?php echo base_url(); ?>assets/ckeditor/samples/js/sample.js"></script>
+
     <div class="page-content-wrapper">
         <div class="page-content">
             <div class="row">
                 <div class="col-md-12">
-                    <h3 class="page-title">Content <small> Management</small></h3>
+                    <h3 class="page-title">Category <small> Management</small></h3>
                     <ul class="page-breadcrumb breadcrumb">
                         <li><i class="fa fa-home"></i><a href="<?php echo base_url(); ?>index.php/admin/home"> Home </a><i class="fa fa-angle-right"></i></li>
-                        <li><a href="<?php echo base_url(); ?>index.php/adminhome/addContent">Content  Management</a></li> 
+                        <li><a href="<?php echo base_url(); ?>/index.php/adminhome/addCategory">Category  Management</a></li> 
                     </ul>
                 </div>
             </div>
@@ -25,63 +24,17 @@
 					</div>	
 					<?php } ?>	
                     <div class="portlet box blue">
-                        <div class="portlet-title"><div class="caption"><i class="fa fa-plus-square"></i> Add Content</div></div>
+                        <div class="portlet-title"><div class="caption"><i class="fa fa-plus-square"></i> Add Category</div></div>
                         
                         <div class="portlet-body form">
-                            <form id="add_content"  method="post" enctype="multipart/form-data" class="form-horizontal" role="form">
+                            <form id="upload_file"  method="post" enctype="multipart/form-data" class="form-horizontal" role="form">
                                 <div class="form-body">
-                                    <div class="form-group"><label class="col-md-3 control-label">Category Name</label>
+                                    <div class="form-group"><label class="col-md-3 control-label">Upload xls</label>
                                         <div class="col-md-4">
-                                        	<select name="category" id="category" class="form-control">
-                                        		<?php $cate=$this->admin_model->getRecord('category', array());
-												if($cate!=0)
-                                        		{
-                                        			foreach ($cate as $valuec) 
-                                        			{
-														?>
-														<option <?php if(isset($detail)){ echo $detail[0]['category_id']==$valuec['category_id']?'selected="selected"':'';}?> value="<?php echo $valuec['category_id'];?>"><?php echo $valuec['category_name'];?></option>
-														<?php
-													}
-                                        		}
-                                        		?>
-                                        	</select>
-                                            <label class="error" for="category" generated="true" style="color: Red;  font-weight: normal;"></label>
-                                            <span style="color:red;"><?php echo form_error('category');?></span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group"><label class="col-md-3 control-label">Title</label>
-                                        <div class="col-md-4">
-                                            <select name="title" id="title" class="form-control">
-                                        		<?php $title=$this->admin_model->getRecord('title', array());
-												if($title!=0)
-                                        		{
-                                        			foreach ($title as $valuet) 
-                                        			{
-														?>
-														<option <?php if(isset($detail)){ echo $detail[0]['title_id']==$valuet['title_id']?'selected="selected"':'';}?> value="<?php echo $valuet['title_id'];?>"><?php echo $valuet['title_name'];?></option>
-														<?php
-													}
-                                        		}
-                                        		?>
-                                        		
-                                        		 
-                                        	</select>		
-                                            <label class="error" for="title" generated="true" style="color: Red;  font-weight: normal;"></label>
-                                            <span style="color:red;"><?php echo form_error('title');?></span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group"><label class="col-md-2 control-label">Content</label>
-                                        <div class="col-md-10">
-                                            <textarea id="content" name="content"><?php if(isset($detail)){ echo $detail[0]['content'];}?></textarea>		
-                                            <label class="error" for="content" generated="true" style="color: Red;  font-weight: normal;"></label>
-                                            <span style="color:red;"><?php echo form_error('content');?></span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group"><label class="col-md-2 control-label">Contenido</label>
-                                        <div class="col-md-10">
-                                            <textarea id="content_spanish" name="content_spanish"><?php if(isset($detail)){ echo $detail[0]['cantent_spanish'];}?></textarea>		
-                                            <label class="error" for="content_spanish" generated="true" style="color: Red;  font-weight: normal;"></label>
-                                            <span style="color:red;"><?php echo form_error('content_spanish');?></span>
+                                        	<input type="file" value="" name="xls_file" id="xls_file" class="form-control"  >		
+                                            <label class="error" for="xls_file" generated="true" style="color: Red;  font-weight: normal;"></label>
+                                        	
+                                            <span style="color:red;"><?php echo form_error('');?></span>
                                         </div>
                                     </div>
                                     <div class="form-actions fluid" style="margin-top:0px; padding-top:0px; padding-bottom:0px;">
@@ -110,17 +63,7 @@
             
         </div>
     </div>
-    <script>
-	initSample();
-</script>
-<script type="text/javascript">
-      CKEDITOR.replace( 'content' );
-      CKEDITOR.add            
-   </script>
-  <script type="text/javascript">
-      CKEDITOR.replace( 'content_spanish' );
-      CKEDITOR.add            
-   </script> 
+    
     <?php include_once 'footer.php'; ?>
         <script src="<?php echo base_url(); ?>assets/plugins/jquery-1.10.2.min.js" type="text/javascript"></script>
         <script src="<?php echo base_url(); ?>assets/plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
@@ -148,25 +91,21 @@
 		<!-- END PAGE LEVEL PLUGINS -->
         <script src="<?php echo base_url(); ?>assets/scripts/core/app.js"></script>
         <script src="<?php echo base_url(); ?>assets/scripts/custom/table-editable.js"></script>
-                <script>
+        <script type="text/javascript">
+        	$(document).ready(function() {
+		    $("#upload_file").submit(function() {
+		        alert("hi");
+		       
+		
+		    })
+		});
+        		
+        </script>
+        <script>
             jQuery(document).ready(function () {
                 App.init();
                 TableEditable.init();
             });
-            
-            $(document).ready(function(){
-		    $("#category").change(function(){
-		    	
-		    	var category = $("#category").val();
-		    	
-		    	$.ajax({
-		        	url: "<?php echo base_url()?>index.php/adminhome/getTitle/"+category,
-		        	type: "GET",
-		  			success: function(result){
-		            $("#title").html(result);
-		        }});
-		    });
-		});
         </script>
         <!--script type="text/javascript" src="<?php echo base_url(); ?>assets/plugins/fuelux/js/spinner.min.js"></script>
         <script src="<?php echo base_url(); ?>assets/plugins/bootstrap-touchspin/bootstrap.touchspin.js" type="text/javascript"></script-->
@@ -180,5 +119,6 @@
 	    </script>
         <script src="<?php echo base_url(); ?>assets/js/jquery.validate.min.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/JQueryValidation.js"></script>
+        <script src="<?php echo base_url(); ?>assets/js/developer.js"></script>
     </body>
    </html>

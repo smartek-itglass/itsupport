@@ -26,7 +26,7 @@
                         <div class="portlet-title"><div class="caption"><i class="fa fa-plus-square"></i> Add Country</div></div>
                         
                         <div class="portlet-body form">
-                            <form id="add_category"  method="post" enctype="multipart/form-data" class="form-horizontal" role="form">
+                            <form id="add_country"  method="post" enctype="multipart/form-data" class="form-horizontal" role="form">
                                 <div class="form-body">
                                 	<div class="form-group"><label class="col-md-3 control-label">Continent</label>
                                         <div class="col-md-4">
@@ -43,8 +43,8 @@
                                         		} }
                                         		?>
                                         	</select>
-                                        	<label class="error" for="country_name" generated="true" style="color: Red;  font-weight: normal;"></label>
-                                            <span style="color:red;"><?php echo form_error('country_name');?></span>
+                                        	<label class="error" for="continent" generated="true" style="color: Red;  font-weight: normal;"></label>
+                                            <span style="color:red;"><?php echo form_error('continent');?></span>
                                         </div>
                                     </div>
                                     <div class="form-group"><label class="col-md-3 control-label">Country Name</label>
@@ -145,6 +145,7 @@
             </div>
         </div>
     </div>
+    
     <?php include_once 'footer.php'; ?>
         <script src="<?php echo base_url(); ?>assets/plugins/jquery-1.10.2.min.js" type="text/javascript"></script>
         <script src="<?php echo base_url(); ?>assets/plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>

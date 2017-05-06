@@ -7,7 +7,7 @@
                     <h3 class="page-title">Change  <small> Password</small></h3>
                     <ul class="page-breadcrumb breadcrumb">
                         <li><i class="fa fa-home"></i><a href="<?php echo base_url(); ?>index.php/admin/home"> Home </a><i class="fa fa-angle-right"></i></li>
-                        <li><a href="<?php echo base_url(); ?>/index.php/adminlevelone/changePassword">Change Password</a></li> 
+                        <li><a href="<?php echo base_url(); ?>/index.php/admin/changePassword">Change Password</a></li> 
                     </ul>
                 </div>
             </div>
@@ -30,7 +30,7 @@
                     <div class="portlet box blue">
                         <div class="portlet-title"><div class="caption"><i class="fa fa-reorder"></i>Change Password</div></div>
                         <div class="portlet-body form">
-                            <form id="changePassword" method="post" enctype="multipart/form-data" action="<?php echo base_url(); ?>index.php/adminlevelone/changePassword" class="form-horizontal" role="form">
+                            <form id="changePassword" method="post" enctype="multipart/form-data" class="form-horizontal" role="form">
                                 <div class="form-body">
                                     <div class="form-group">	
                                         <label class="col-md-3 control-label">Current Password</label>

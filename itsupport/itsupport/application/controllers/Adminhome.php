@@ -462,5 +462,103 @@ class Adminhome extends CI_Controller
 		$this->session->set_flashdata('success_msg','Country deleted successfully');
 		redirect('adminhome/addCountries');
 	}
+	public function uploadxl()
+	{
+		//echo $_SERVER['DOCUMENT_ROOT'].'/itsupport/assets/excel/PHPExcel.php';die;
+		require $_SERVER['DOCUMENT_ROOT'].'/itsupport/assets/excel/PHPExcel.php';
+		require_once $_SERVER['DOCUMENT_ROOT'].'/itsupport/assets/excel/PHPExcel/IOFactory.php';
+		$this->load->view('admin/upload_xl_file');
+		
+		if(isset($_POST['submit']))
+		{
+			
+			//Load file
+			$path = $_FILES['xls_file']['tmp_name'];
+			$objPHPExcel = PHPExcel_IOFactory::load($path);
+			
+			//Loop threw file to get data
+			foreach ($objPHPExcel->getWorksheetIterator() as $worksheet) 
+			{
+				$worksheetTitle     = $worksheet->getTitle();
+				
+				$highestRow         = $worksheet->getHighestRow(); // e.g. 10
+				$highestColumn      = $worksheet->getHighestColumn(); // e.g 'F'
+				$highestColumnIndex = PHPExcel_Cell::columnIndexFromString($highestColumn);
+				$nrColumns = ord($highestColumn) - 64;
+				
+				for ($row = 1; $row <= $highestRow; ++ $row) 
+				{
+				    for ($col = 0; $col < $highestColumnIndex; ++ $col) 
+				    {
+				        $cell = $worksheet->getCellByColumnAndRow($col, $row);
+				        $val = $cell->getCalculatedValue();
+				    }
+				}
+			}
+			
+			for ($row = 1; $row <= $highestRow; ++ $row) 
+			{
+				$val=array();
+				for ($col = 0; $col < $highestColumnIndex; ++ $col) 
+				{
+					$cell = $worksheet->getCellByColumnAndRow($col, $row);
+					$val[] = $cell->getValue();
+				}
+				echo "<pre>";
+				print_r($val);
+				//Now insert the data in database
+				/*$data=array(
+							'continent_id'=>$val[0],
+							'country_name'=>$val[1],
+							'country_spanish'=>$val[2],
+							'number'=>$val[3],
+							'created'=>date('Y-m-d H:i:s'));
+				$this->admin_model->saveRecord('countries', $data);*/
+			}
+			die;
+			$this->session->set_flashdata('success_msg','Country added successfully');
+			redirect('adminhome/addCountries');
+		}
+	}
+	public function exportExcel()
+	{
+	
+		/*******EDIT LINES 3-8*******/
+	 
+		$filename = "excelfilename";         //File Name
+		$flag = false;
+		$file_ending = "xls";
+		$query="SELECT * FROM `continents` c LEFT JOIN `countries` cu ON c.`continent_id`=cu.`continent_id`";
+		$result=$this->admin_model->getRecordQuery($query);
+	
+		//header info for browser
+		header("Content-Type: application/xls");    
+		header("Content-Disposition: attachment; filename=$filename.xls");  
+		header("Pragma: no-cache"); 
+		header("Expires: 0");
+		/*******Start of Formatting for Excel*******/ 
+		$i=1;  
+		 foreach ($result as $val) 
+		 {
+        	$arr = array(
+				'Sr no'=>$i,
+                'Continent English' => $val['continent_name'],
+                'Continent Spanish' => $val['continent_spanish'],
+                'Country English' => $val['country_name'],
+                'Country Spanish' => $val['country_spanish'],
+                'Number' => $val['number'],
+            );
+                if(!$flag){
+                    // display field/column names as first row
+                    echo implode("\t", array_keys($arr)) . "\r\n";
+                    echo "\n";
+                } 
+                $flag = true;
+                echo implode("\t", array_values($arr)) . "\r\n";
+                $i++;
+            }
+            echo "\n";  
+
+	}
 }
 ?>
