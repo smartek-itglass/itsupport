@@ -1,5 +1,5 @@
 $(document).ready(function(){
-$("#category").change(function(){
+/*$("#category").change(function(){
     	var myKeyVals = { category : $("#category").val()};
 		//var city=$("#tag").val();
     	
