@@ -52,27 +52,33 @@
                                     <div class="form-group"><label class="col-md-3 control-label">Title</label>
                                         <div class="col-md-4">
                                             <select name="title" id="title" class="form-control">
-                                        		<?php $title=$this->admin_model->getRecord('title', array());
-												if($title!=0)
-                                        		{
-                                        			foreach ($title as $valuet) 
-                                        			{
-														?>
-														<option <?php if(isset($detail)){ echo $detail[0]['title_id']==$valuet['title_id']?'selected="selected"':'';}?> value="<?php echo $valuet['title_id'];?>"><?php echo $valuet['title_name'];?></option>
-														<?php
-													}
-                                        		}
+                                            	<option>SELCT TITLE</option>
+                                        		<?php 
+                                        		if(isset($detail))
+												{
+													$title=$this->admin_model->getRecord('title', array());
+													if($title!=0)
+	                                        		{
+	                                        			foreach ($title as $valuet) 
+	                                        			{
+															?>
+															<option <?php if(isset($detail)){ echo $detail[0]['title_id']==$valuet['title_id']?'selected="selected"':'';}?> value="<?php echo $valuet['title_id'];?>"><?php echo $valuet['title_name'];?></option>
+															<?php
+														}
+	                                        		}
+												}
                                         		?>
                                         		
                                         		 
                                         	</select>		
                                             <label class="error" for="title" generated="true" style="color: Red;  font-weight: normal;"></label>
                                             <span style="color:red;"><?php echo form_error('title');?></span>
+                                            
                                         </div>
                                     </div>
                                     <div class="form-group"><label class="col-md-2 control-label">Content</label>
                                         <div class="col-md-10">
-                                            <textarea id="content" name="content"><?php if(isset($detail)){ echo $detail[0]['content'];}?></textarea>		
+                                        	<textarea id="content" name="content"><?php if(isset($detail)){ echo $detail[0]['content'];}?></textarea>		
                                             <label class="error" for="content" generated="true" style="color: Red;  font-weight: normal;"></label>
                                             <span style="color:red;"><?php echo form_error('content');?></span>
                                         </div>
