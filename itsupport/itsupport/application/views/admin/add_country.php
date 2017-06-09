@@ -68,6 +68,13 @@
                                             <span style="color:red;"><?php echo form_error('number');?></span>
                                         </div>
                                     </div>
+                                    <div class="form-group"><label class="col-md-3 control-label">Email Id</label>
+                                        <div class="col-md-4">
+                                            <input type="text" value="<?php if(isset($detail)){ echo $detail[0]['email_id'];}?>" name="email_id" id="email_id" class="form-control"  placeholder="Email Id">		
+                                            <label class="error" for="email_id" generated="true" style="color: Red;  font-weight: normal;"></label>
+                                            <span style="color:red;"><?php echo form_error('email_id');?></span>
+                                        </div>
+                                    </div>
                                     <div class="form-actions fluid" style="margin-top:0px; padding-top:0px; padding-bottom:0px;">
                                         <div class="col-md-offset-3 " style="margin-left: 0px; padding-left: 0px; text-align: right;">
                                         	<?php

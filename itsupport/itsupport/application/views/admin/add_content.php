@@ -30,9 +30,13 @@
                         <div class="portlet-body form">
                             <form id="add_content"  method="post" enctype="multipart/form-data" class="form-horizontal" role="form">
                                 <div class="form-body">
-                                    <div class="form-group"><label class="col-md-3 control-label">Category Name</label>
-                                        <div class="col-md-4">
+                                	<div class="row">
+                                	<div class="main-group col-md-8">
+                                    <div class="form-group">
+                                    	<label class="col-md-4 control-label">Category Name</label>
+                                        <div class="col-md-8">
                                         	<select name="category" id="category" class="form-control">
+                                        		<option>SELECT CATEGORY</option>
                                         		<?php $cate=$this->admin_model->getRecord('category', array());
 												if($cate!=0)
                                         		{
@@ -49,10 +53,10 @@
                                             <span style="color:red;"><?php echo form_error('category');?></span>
                                         </div>
                                     </div>
-                                    <div class="form-group"><label class="col-md-3 control-label">Title</label>
-                                        <div class="col-md-4">
+                                    <div class="form-group"><label class="col-md-4 control-label">Title</label>
+                                        <div class="col-md-8">
                                             <select name="title" id="title" class="form-control">
-                                            	<option>SELCT TITLE</option>
+                                            	<option>SELECT TITLE</option>
                                         		<?php 
                                         		if(isset($detail))
 												{
@@ -76,7 +80,29 @@
                                             
                                         </div>
                                     </div>
-                                    <div class="form-group"><label class="col-md-2 control-label">Content</label>
+                                    <div class="form-group"><label class="col-md-4 control-label">Image</label>
+                                        <div class="col-md-8">
+                                        	<?php if(isset($detail)){
+                                        		 echo '<input type="file" name="image1" id="image1" class="form-control">';
+													}else
+														{
+															echo '<input type="file" name="image" id="image" class="form-control">';
+														}
+                                        		 ?>
+                                            		
+                                            <label class="error" for="image" generated="true" style="color: Red;  font-weight: normal;"></label>
+                                            <span style="color:red;"><?php echo form_error('image');?></span>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <div class="group-img col-md-4">
+                                    	<?php if(isset($detail)){ if($detail[0]['image']!=""){  ?>
+                                    	<img src="<?php echo $this->admin_model->get_user_img_url('content', $detail[0]['image'])?>" width="150px" height="150px">	
+                                    		<?php }}?>
+                                    </div>
+                                    </div>
+                                    
+                                    <div class="form-group row"><label class="col-md-2 control-label">Content</label>
                                         <div class="col-md-10">
                                         	<textarea id="content" name="content"><?php if(isset($detail)){ echo $detail[0]['content'];}?></textarea>		
                                             <label class="error" for="content" generated="true" style="color: Red;  font-weight: normal;"></label>

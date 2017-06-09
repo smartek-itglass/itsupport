@@ -128,7 +128,49 @@
 		mail($to,$subject,$message,$headers);	
 			
 	 }
-     function send_android_notification($registatoin_ids,$message,$notificationType,$dataArray,$totalCount) 
+	 public function sendSmtpEmail($email_id,$message,$subject,$user_name)
+	{
+			$base_url=base_url();
+			$str="&lsquo;";
+			
+			$this->load->library('Email'); 
+			$config['protocol'] = 'sendmail';
+			$config['mailpath'] = '/usr/sbin/sendmail';
+			$config['charset'] = 'utf-8';
+			$config['wordwrap'] = TRUE;
+			$config['mailtype'] = 'html';
+			$this->email->initialize($config);
+			
+			$from=$email_id;
+			
+			
+			$to = "it.support@gmail.com";
+			$subject = $subject;
+			$message =$message;		
+			$headers  = 'MIME-Version: 1.0' . "\r\n";
+			$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+			$headers .= "Content-Type: image/jpg;\n" ;
+			$headers .= "From:" . $from;	 
+			
+			
+			$this->email->reply_to($from); 
+   			$this -> email -> from($from);
+   			
+   			
+			$this->email->to($to);
+			$this->email->subject($subject);
+			$this->email->message($message);  
+			
+			//$mail = $this->email->send();
+			if($mail = $this->email->send())
+			{
+				return 1;
+			}
+			else {
+				return 0;
+			}
+	}
+     function send_android_notification($registatoin_ids,$array) 
      {
 		  // Set POST variables
 		  $url = 'https://android.googleapis.com/gcm/send';
@@ -138,11 +180,11 @@
 		  );*/
 		  $fields = array(
 			  'registration_ids' => array($registatoin_ids),
-			  'data' =>  array('message'=>$message,'notification_type'=>$notificationType,'data_array'=>$dataArray,'total_count'=>$totalCount),
+			  'data' =>  array('data'=>$array)
 		  );
 		  //AIzaSyArUgBagMcpaZ4RRokzMuE6T4rqqWPlvsA
 		  $headers = array(
-			   'Authorization: key=AIzaSyAym4sOdFXX1kG5HcaSZuB8KZd3GH6m9eU',
+			   'Authorization: key=AIzaSyAzdum4IB0OVfDLABrlBp9QUy-lfjHmk7w',
 			   'Content-Type: application/json'
 		   );
 		   // Open connection
@@ -162,8 +204,8 @@
 	       
 		   // Execute post
 		   $result = curl_exec($ch);
-		   /*echo "<pre>";
-		   print_r($result);*/
+		   echo "<pre>";
+		   print_r($result);
 		   if ($result === FALSE) 
 		   {
 			  // die('Curl failed: ' . curl_error($ch));
@@ -177,14 +219,14 @@
 		   curl_close($ch);
 		//   echo $result;
 	}
-	public function delivery_iphone_notification($deviceToken,$message,$notificationType,$sub_type,$dataArray,$totalCount)
+	public function ios_notification($deviceToken,$array)
 	{
 		
 		$passphrase = '123';
 		////////////////////////////////////////////////////////////////////////////////
 		// $pemfile = base_url()."APNS/SelfieezAPNS-ClientA-C.pem";
 		
-		$pemfile = $_SERVER['DOCUMENT_ROOT'] . "/fooder_app/assets/ios/fooderDelivery.pem";
+		$pemfile = $_SERVER['DOCUMENT_ROOT'] . "/itsupport/ITSuport.pem";
 		
 		$ctx = stream_context_create();
 		stream_context_set_option($ctx, 'ssl', 'local_cert', $pemfile);
@@ -196,14 +238,7 @@
 		if (!$fp)
 		exit("Failed to connect: $err $errstr" . PHP_EOL);
 		// Create the payload body
-		$body['aps'] = array(
-			 'alert' => $message,
-			 'notification_type' => $notificationType,
-			 'sub_type'   => $sub_type,
-			 'data_array' => $dataArray,
-			 'total_count'=> $totalCount,
-			 'sound' => 'default',
-		);
+		$body['aps'] = $array;
 		// Encode the payload as JSON
 		$payload = json_encode($body);
 		// Build the binary notification

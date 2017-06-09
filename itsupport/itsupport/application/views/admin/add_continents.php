@@ -42,7 +42,20 @@
                                             <span style="color:red;"><?php echo form_error('continent_spanish');?></span>
                                         </div>
                                     </div>
-                                    
+                                    <div class="form-group"><label class="col-md-3 control-label">Image</label>
+                                        <div class="col-md-4">
+                                        	<?php if(isset($detail)){
+                                        		 echo '<input type="file" name="image1" id="image1" class="form-control">';
+													}else
+														{
+															echo '<input type="file" name="image" id="image" class="form-control">';
+														}
+                                        		 ?>
+                                            		
+                                            <label class="error" for="image" generated="true" style="color: Red;  font-weight: normal;"></label>
+                                            <span style="color:red;"><?php echo form_error('image');?></span>
+                                        </div>
+                                    </div>
                                     <div class="form-actions fluid" style="margin-top:0px; padding-top:0px; padding-bottom:0px;">
                                         <div class="col-md-offset-3 " style="margin-left: 0px; padding-left: 0px; text-align: right;">
                                         	<?php
@@ -77,6 +90,7 @@
                                     	 <th style="width:5%;">Sr.no</th> 
                                     	 <th>Continent</th>
                                     	 <th>Continentes</th>
+                                    	 <th>Image</th>
                                     	 <th style="width: 280px;">ACTION </th> 
                                    </tr>		
                                 </thead>
@@ -94,7 +108,7 @@
                                         	<td><?php echo $i;?></td>
                                             <td style="font-size: 15px;"><?php echo $value['continent_name']; ?></td>
                                             <td style="font-size: 15px;"><?php echo $value['continent_spanish']; ?></td>
-                                            
+                                            <td style="font-size: 15px;"><img src="<?php echo $this->admin_model->get_user_img_url('continents', $value['image'])?>" width="50" height="50"/></td>
                                             <td><a style="padding-left: 10px;" href="<?php echo base_url()?>index.php/adminhome/addContinents/<?php echo $value['continent_id'];?>">
                                                <span class="glyphicon glyphicon-edit"></span>
                                             </a>

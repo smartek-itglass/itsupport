@@ -60,6 +60,24 @@
                                             <span style="color:red;"><?php echo form_error('');?></span>
                                         </div>
                                     </div>
+                                    <div class="form-group"><label class="col-md-3 control-label">Background Image</label>
+                                        <div class="col-md-4">
+                                        	<?php
+                                        	if(isset($detail))
+                                        	{
+                                        		echo '<input type="file" value="" name="background_image" id="background_image" class="form-control"  >		
+                                            <label class="error" for="background_image" generated="true" style="color: Red;  font-weight: normal;"></label>';	
+                                        	}
+											else 
+											{
+												echo '<input type="file" value="" name="background_image1" id="background_image1" class="form-control"  >		
+                                            <label class="error" for="background_image1" generated="true" style="color: Red;  font-weight: normal;"></label>';	
+											}	
+                                        	?>	
+                                            
+                                            <span style="color:red;"><?php echo form_error('');?></span>
+                                        </div>
+                                    </div>
                                     <div class="form-actions fluid" style="margin-top:0px; padding-top:0px; padding-bottom:0px;">
                                         <div class="col-md-offset-3 " style="margin-left: 0px; padding-left: 0px; text-align: right;">
                                         	<?php

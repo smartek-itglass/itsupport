@@ -68,11 +68,33 @@ class Adminhome extends CI_Controller
 				{
 					$newfilename ="";
 				}
+				
+				if(isset($_FILES['background_image1']['name']))
+				{
+					if($_FILES['background_image1']['name']!='')
+					{
+						$imanename = $_FILES['background_image1']['name'];
+						$temp = explode(".", $_FILES["background_image1"]["name"]);
+						$background_image = rand(1, 99999) . '.' . end($temp);
+						//This is for upload the image
+						$path= './images/background_image/'.$background_image;
+						$upload = copy($_FILES['background_image1']['tmp_name'], $path);
+					}
+					else 
+					{
+						$background_image ="";
+					}
+				}	
+				else 
+				{
+					$background_image ="";
+				}
 				//now save the category detail
 				$data=array(
 							'category_name'=>$category_name,
 							'category_spanish'=>$category_spanish,
 							'category_image'=>$newfilename,
+							'background_image'=>$background_image,
 							'created'=>date('Y-m-d H:i:s'));
 				$result=$this->admin_model->saveRecord('category',$data);
 				if($result==0)
@@ -82,6 +104,7 @@ class Adminhome extends CI_Controller
 				}
 				else 
 				{
+					$this->admin_model->updateRecord('update_dates',array('category_update_date'=>date('Y-m-d H:i')),array('update_id'=>1));
 					$this -> session -> set_flashdata('success_msg', 'Category added successfully');
 					redirect('adminhome/addCategory');
 				}
@@ -121,13 +144,35 @@ class Adminhome extends CI_Controller
 				{
 					$newfilename =$cate_data['detail'][0]['category_image'];
 				}
+				if(isset($_FILES['background_image']['name']))
+				{
+					if($_FILES['background_image']['name']!='')
+					{
+						$imanename = $_FILES['background_image']['name'];
+						$temp = explode(".", $_FILES["background_image"]["name"]);
+						$background_image = rand(1, 99999) . '.' . end($temp);
+						//This is for upload the image
+						$path= './images/background_image/'.$background_image;
+						$upload = copy($_FILES['background_image']['tmp_name'], $path);
+					}
+					else 
+					{
+						$background_image ="";
+					}
+				}	
+				else 
+				{
+					$background_image ="";
+				}
 				//now update the data
 				$data=array(
 							'category_name'=>$category_name,
 							'category_image'=>$newfilename,
+							'background_image'=>$background_image,
 							'category_spanish'=>$category_spanish
 							);
 				$this->admin_model->updateRecord('category',$data,array('category_id'=>$category_id));
+				$this->admin_model->updateRecord('update_dates',array('category_update_date'=>date('Y-m-d H:i')),array('update_id'=>1));
 				$this -> session -> set_flashdata('success_msg', 'Category updated successfully');
 				redirect('adminhome/addCategory');
 			}
@@ -227,11 +272,32 @@ class Adminhome extends CI_Controller
 			$content			= $this->input->post('content');
 			$content_spanish	= $this->input->post('content_spanish');
 			
+			if(isset($_FILES['image']['name']))
+			{
+				if($_FILES['image']['name']!='')
+				{
+					$imanename = $_FILES['image']['name'];
+					$temp = explode(".", $_FILES["image"]["name"]);
+					$newfilename = rand(1, 99999) . '.' . end($temp);
+					//This is for upload the image
+					$path= './images/content/'.$newfilename;
+					$upload = copy($_FILES['image']['tmp_name'], $path);
+				}
+				else 
+				{
+					$newfilename ="";
+				}
+			}	
+			else 
+			{
+				$newfilename ="";
+			}
 			$data=array(
 						'category_id'		=> $category,
 						'title_id'			=> $title,
 						'content'			=> $content,
 						'cantent_spanish'	=> $content_spanish,
+						'image'				=> $newfilename,
 						'created'			=> date('Y-m-d H:i:s'));
 						
 			$result=$this->admin_model->saveRecord('content', $data);
@@ -254,12 +320,34 @@ class Adminhome extends CI_Controller
 			$content_spanish	= $this->input->post('content_spanish');
 			$content_id			= $this->uri->segment(3);
 			
+			if(isset($_FILES['image1']['name']))
+			{
+				if($_FILES['image1']['name']!='')
+				{
+					$imanename = $_FILES['image1']['name'];
+					$temp = explode(".", $_FILES["image1"]["name"]);
+					$newfilename = rand(1, 99999) . '.' . end($temp);
+					//This is for upload the image
+					$path= './images/content/'.$newfilename;
+					$upload = copy($_FILES['image1']['tmp_name'], $path);
+				}
+				else 
+				{
+					$newfilename =$detail['detail'][0]['image'];
+				}
+			}	
+			else 
+			{
+				$newfilename =$detail['detail'][0]['image'];
+			}
+			
 			$data=array(
 						'category_id'		=> $category,
 						'title_id'			=> $title,
 						'content'			=> $content,
 						'cantent_spanish'	=> $content_spanish,
-						'created'			=> date('Y-m-d H:i:s'));
+						'image'				=> $newfilename,
+						);
 						
 			$result=$this->admin_model->updateRecord('content',$data,array('content_id'=>$content_id));
 			$this->session->set_flashdata('success_msg','Content added successfully');
@@ -321,10 +409,32 @@ class Adminhome extends CI_Controller
 			}
 			else
 			{
-				//now add the continent	
+				
+				//now add the continent
+				if(isset($_FILES['image']['name']))
+				{
+					if($_FILES['image']['name']!='')
+					{
+						$imanename = $_FILES['image']['name'];
+						$temp = explode(".", $_FILES["image"]["name"]);
+						$newfilename = rand(1, 99999) . '.' . end($temp);
+						//This is for upload the image
+						$path= './images/continents/'.$newfilename;
+						$upload = copy($_FILES['image']['tmp_name'], $path);
+					}
+					else 
+					{
+						$newfilename ="";
+					}
+				}	
+				else 
+				{
+					$newfilename ="";
+				}	
 				$data=array(
 							'continent_name'=>$continent_name,
 							'continent_spanish'=>$continent_spanish,
+							'image'=>$newfilename,
 							'created'=>date('Y-m-d H:i:s'));
 							
 				$result=$this->admin_model->saveRecord('continents', $data);
@@ -336,6 +446,7 @@ class Adminhome extends CI_Controller
 				}
 				else
 				{
+					$this->admin_model->updateRecord('update_dates',array('continents_update_date'=>date('Y-m-d H:i')),array('update_id'=>1));
 					//continent added successfully
 					$this->session->set_flashdata('success_msg','Continent added successfully');
 					redirect('adminhome/addContinents');
@@ -360,11 +471,33 @@ class Adminhome extends CI_Controller
 			else
 			{
 				//now add the continent
-				$data=array(
+				if(isset($_FILES['image1']['name']))
+				{
+					if($_FILES['image1']['name']!='')
+					{
+						$imanename = $_FILES['image1']['name'];
+						$temp = explode(".", $_FILES["image1"]["name"]);
+						$newfilename = rand(1, 99999) . '.' . end($temp);
+						//This is for upload the image
+						$path= './images/continents/'.$newfilename;
+						$upload = copy($_FILES['image1']['tmp_name'], $path);
+					}
+					else 
+					{
+						$newfilename =$detail['detail'][0]['image'];
+					}
+				}	
+				else 
+				{
+					$newfilename =$detail['detail'][0]['image'];
+				}
+				$data = array(
 							'continent_name'=>$continent_name,
 							'continent_spanish'=>$continent_spanish,
-							);
+							'image'=>$newfilename
+					    );
 				$result=$this->admin_model->updateRecord('continents',$data,array('continent_id'=>$continent_id));
+				$this->admin_model->updateRecord('update_dates',array('continents_update_date'=>date('Y-m-d H:i')),array('update_id'=>1));
 				$this->session->set_flashdata('success_msg','Continent added successfully');
 				redirect('adminhome/addContinents');
 			}
@@ -394,6 +527,7 @@ class Adminhome extends CI_Controller
 			$country_name		= $this->input->post('country_name');
 			$country_spanish	= $this->input->post('country_spanish');
 			$number				= $this->input->post('number');
+			$email_id			= $this->input->post('email_id');
 			//now check the country already exist or not
 			$check=$this->admin_model->getRecord('countries', array('country_name'=>$country_name,'continent_id'=>$continet_id));
 			if($check==0)
@@ -404,6 +538,7 @@ class Adminhome extends CI_Controller
 							'continent_id'		=> $continet_id,
 							'country_spanish'	=> $country_spanish,
 							'number'			=> $number,
+							'email_id'			=> $email_id,
 							'created'			=> date('Y-m-d H:i:s'));
 				$result=$this->admin_model->saveRecord('countries', $data);
 				if($result==0)
@@ -430,6 +565,7 @@ class Adminhome extends CI_Controller
 			$country_name		= $this->input->post('country_name');
 			$country_spanish	= $this->input->post('country_spanish');
 			$number				= $this->input->post('number');
+			$email_id			= $this->input->post('email_id');
 			//now check the country already exist or not
 			$check=$this->admin_model->getRecord('countries', array('country_name'=>$country_name,'continent_id'=>$continet_id,'country_id!='=>$country_id));
 			if($check==0)
@@ -440,6 +576,7 @@ class Adminhome extends CI_Controller
 							'continent_id'		=> $continet_id,
 							'country_spanish'	=> $country_spanish,
 							'number'			=> $number,
+							'email_id'			=> $email_id,
 							);
 				$result=$this->admin_model->updateRecord('countries',$data,array('country_id'=>$country_id));
 			
@@ -559,6 +696,91 @@ class Adminhome extends CI_Controller
             }
             echo "\n";  
 
+	}
+    //// code by deepika 
+    /* Start send alert notification */
+	public function alertNotification()
+	{
+		if(isset($_POST['submit']))
+		{
+			if($this->form_validation->run('alert_notifi_val')==FALSE)
+			{
+				$this->load->view('admin/alert_notification');
+			}
+			else 
+			{
+				$notification	= ($_POST['notification'] != '')?$_POST['notification'] : '';;
+				$platform 		= ($_POST['platform'] != '')?$_POST['platform'] : '';;
+				$location 		= ($_POST['location'] != '')?$_POST['location'] : '';;
+				$notifi_date	= ($_POST['notifi_date'] != '')?$_POST['notifi_date'] : '';;
+				$status 		= ($_POST['status'] != '')?$_POST['status'] : '';;
+				$notifi_type 	= ($_POST['notifi_type'] != '')?$_POST['notifi_type'] : '';;
+				
+				$data = array(
+					
+					'notification'=> $notification,
+					'platform'	  => $platform,
+					'location'	  => $location,
+					'notifi_date' => $notifi_date,
+					'status'	  => $status,
+					'notifi_type' => $notifi_type,
+					'created'	  => date('Y-m-d H:i:s')
+				);
+							
+				$result=$this->admin_model->saveRecord('alert_notification', $data);
+				if($result!=0)
+				{
+					//now send the notification
+					$device=$this->admin_model->getRecord('user', array('device_token!='=>''));
+					if($device!=0)
+					{
+						foreach ($device as $value) 
+						{
+							if($value['notification']==0)
+							{
+								if($value['device_type']==0)
+								{
+									//This is for android 
+									$array=array(
+											'message'	  => $notification,
+											'platform'	  => $platform,
+											'location'	  => $location,
+											'notifi_date' => $notifi_date,
+											'status'	  => $status,
+											'notifi_type' => $notifi_type,
+											'created'	  => date('Y-m-d H:i:s')
+										);
+									$this->admin_model->send_android_notification($value['device_token'],$array);	
+								}
+								else 
+								{
+									//This is for ios
+									$array=array(
+											'alert' 		=> $notification,
+											'platform'	  	=> $platform,
+											'location'	  	=> $location,
+											'notifi_date' 	=> $notifi_date,
+											'status'	  	=> $status,
+											'notifi_type' 	=> $notifi_type,
+											'created'	  	=> date('Y-m-d H:i:s'),
+											'sound' 		=> 'default',
+										);
+									$this->admin_model->ios_notification($value['device_token'],$array);	
+								}
+							}
+						}
+					}
+					$this->session->set_flashdata('success_msg','send successfully');
+				}
+				else 
+				{
+					$this->session->set_flashdata('error_msg','Data could not send at the moment');
+				}
+				redirect('adminhome/alertNotification');
+			}
+		}else{
+			$this->load->view('admin/alert_notification');
+		}
 	}
 }
 ?>
